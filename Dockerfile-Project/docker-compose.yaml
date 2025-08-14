@@ -1,0 +1,39 @@
+version: '1.0'
+services:
+  database:
+    build:
+      context: ./database
+    image: sidnal08/node_db:1.0
+    container_name: node_db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql123
+      - MYSQL_ROOT_USER=ROOT
+    volumes:
+      - db_data:/var/lib/mysql
+  backend:
+    build: 
+     context: ./backend
+    image: sidnal08/node_backend:1.0
+    container_name: node_backend
+    ports:
+      - "3500:3500"
+    depends_on:
+      - database
+
+  frontend:
+    build: 
+      context: ./frontend
+    image: sidnal08/node_nginx:1.0
+    container_name: node_frontend
+    ports:
+      - "80:80"
+    volumes:
+      - nginx_data:/var/log/nginx
+    depends_on:
+      - backend
+
+volumes:
+   db_data: {} 
+   nginx_data: {}
