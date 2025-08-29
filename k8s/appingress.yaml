@@ -1,0 +1,21 @@
+# Ingress Rule
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mern-app-ing
+  namespace: production
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: mern.devopswithsiddharth.live
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-app
+                port:
+                  number: 80
