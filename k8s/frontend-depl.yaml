@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app
+  namespace: production
+  labels:
+    app: frontend-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+        - name: react-frontend
+          image: sidnal08/mern-frontend:1.0
+          ports:
+            - containerPort: 80
+      initContainers:
+        - name: init-backendsvc
+          image: busybox
+          command: ['sh', '-c', 'until nslookup backend-container.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+    
