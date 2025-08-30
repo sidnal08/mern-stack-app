@@ -18,6 +18,7 @@ spec:
       containers:
         - name: node-backend
           image: sidnal08/mern-backend:1.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 3500
       initContainers:
