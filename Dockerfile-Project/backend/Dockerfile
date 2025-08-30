@@ -1,5 +1,5 @@
 # Pull Node image Node 14
-FROM node:14.0
+FROM node:18-alpine
 LABEL "author"="Siddharth"
 LABEL "Env"="Prod"
 WORKDIR /app
