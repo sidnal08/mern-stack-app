@@ -7,4 +7,4 @@ ADD package*.json ./
 RUN npm install
 ADD . .
 EXPOSE 3500
-CMD ["node","service.js"]
+CMD ["node","server.js"]
